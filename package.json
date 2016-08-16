@@ -1,0 +1,40 @@
+{
+  "name": "ampbone-test",
+  "version": "1.0.0",
+  "description": "a basic build size comparison of ampersand, backbone and odgn-backbone-model",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    
+    "build-ampersand": "browserify ampersand.js -o build/ampersand-debug.js -t [ babelify --presets [ es2015 ] ]",
+    "minify-ampersand": "echo 'cd build && uglifyjs ampersand-debug.js --compress --source-map ampersand.js.map --output ampersand.js' | sh",
+
+    "build-backbone": "browserify backbone.js --exclude jquery -o build/backbone-debug.js -t [ babelify --presets [ es2015 ] ]",
+    "minify-backbone": "echo 'cd build && uglifyjs backbone-debug.js --compress --source-map backbone.js.map --output backbone.js' | sh",
+
+    "build-odgn-backbone-model": "browserify odgn-backbone-model.js -o build/odgn-backbone-model-debug.js -t [ babelify --presets [ es2015 ] ]",
+    "minify-odgn-backbone-model": "echo 'cd build && uglifyjs odgn-backbone-model-debug.js --compress --source-map odgn-backbone-model.js.map --output odgn-backbone-model.js' | sh",
+    
+    "clean": "rm -rf node_modules build; mkdir build; npm install",
+    "build": "mkdir -p build; npm run build-ampersand && npm run minify-ampersand && npm run build-backbone && npm run minify-backbone && npm run build-odgn-backbone-model && npm run minify-odgn-backbone-model"
+  },
+  "author": "Alexander Veenendaal",
+  "license": "ISC",
+  "dependencies": {
+    "ampersand-collection": "^2.0.0",
+    "ampersand-state": "^5.0.2",
+    "backbone": "^1.3.3",
+    "odgn-backbone-model": "^1.3.4"
+  },
+  "devDependencies": {
+    "babel-preset-es2015": "^6.13.2",
+    "babelify": "^7.3.0",
+    "browserify": "^13.1.0",
+    "uglifyjs": "^2.4.10"
+  },
+  "babel": {
+    "presets": [
+      "es2015"
+    ]
+  }
+}
